@@ -17,6 +17,6 @@ download
 http://xmlsoft.org/sources/win32/iconv-1.9.2.win32.zip
 http://xmlsoft.org/sources/win32/libxml2-2.7.8.win32.zip
 
-Place these dll file to the directory that is conteind in PATH enviromment,or the directory in that foobar2000.exe resides.
+Place these dll file to the directory that is conteind in PATH enviromment,or the directory where foobar2000.exe resides.
 libxml2.dll
 iconv.dll
