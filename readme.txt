@@ -1,7 +1,7 @@
 This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from www.azlyrics.com. 
 
 Component dll:
-foo_lyricsource.dll
+Release/foo_lyricsource.dll
 
 Develop enviroment:
 Visual studio Express 2015 for Windows Desktop
