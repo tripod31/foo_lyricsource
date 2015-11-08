@@ -45,7 +45,7 @@ local.properties
 # Build results
 
 [Dd]ebug/
-[Rr]elease/
+#[Rr]elease/
 x64/
 build/
 [Bb]in/
@@ -78,6 +78,14 @@ build/
 *.pidb
 *.log
 *.scc
+
+#yoshi
+*.tlog
+*.exp
+*.iobj
+*.ipdb
+*.lib
+
 
 # Visual C++ cache files
 ipch/
