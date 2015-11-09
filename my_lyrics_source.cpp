@@ -82,8 +82,7 @@ std::string removeStrRegex(std::string& str,const char* pattern) {
 	return ret;
 }
 
-// for dom
-
+/* for DOM scraping
 // find node that contains lyrics
 xmlNode* my_lyrics_source::FindNode(xmlNode*& element) {
 	for (htmlNodePtr node = element; node != NULL; node = node->next) {
@@ -156,8 +155,9 @@ void my_lyrics_source::GetLyrics(xmlNode*& element) {
 		}
 	}
 }
+*/
 
-// for sax
+// for SAX scraping
 std::string g_lyrics;
 bool g_scraping;
 
@@ -221,17 +221,7 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 	m_pHttpClient->download_page( page, "Mozilla Firefox", url.c_str() );
 	std::string lyrics;
 
-	// SAX
-	htmlSAXHandler sax = {};
-	sax.comment = &commentSAX;
-	sax.characters = &charactersSAX;
-	sax.startElement = &startElementSAX;
-	g_scraping = false;
-	g_lyrics = "";
-	htmlSAXParseDoc((xmlChar*)page.c_str(), "UTF-8", &sax, NULL);
-	lyrics = g_lyrics;
-
-	/* DOM
+	/* DOM scraping
 	htmlDocPtr docPtr = htmlReadMemory(page.c_str(), page.length(), "", "utf-8", HTML_PARSE_RECOVER);
 	if (docPtr)
 	{
@@ -244,6 +234,17 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 	}
 	lyrics = m_content;
 	*/
+
+	// SAX scraping
+	htmlSAXHandler sax = {};
+	sax.comment = &commentSAX;
+	sax.characters = &charactersSAX;
+	sax.startElement = &startElementSAX;
+	g_scraping = false;
+	g_lyrics = "";
+	htmlSAXParseDoc((xmlChar*)page.c_str(), "UTF-8", &sax, NULL);
+	lyrics = g_lyrics;
+
 	lyrics = trim(lyrics);
 	if (lyrics.length() > 0) {
 		//then we use the results client to provide an interface which contains the new lyric 

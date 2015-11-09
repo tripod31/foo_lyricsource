@@ -21,14 +21,16 @@ class my_lyrics_source : public lyric_source_base
 {
 	//do your http requests through this. It automatically uses the user's proxy/timeout settings 
 	lyric_http_request::ptr m_pHttpClient;
+
+
+	// for DOM scraping
+	/*
 	std::string m_content;
 	bool m_scraping;
-
-	// DOM
 	xmlNode* my_lyrics_source::FindNode(xmlNode*& element);
 	void my_lyrics_source::GetContent(xmlNode*& element);
 	void my_lyrics_source::GetLyrics(xmlNode*& element);
-
+	*/
 public:
 
 	my_lyrics_source() : lyric_source_base() {};
