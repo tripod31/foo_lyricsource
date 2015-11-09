@@ -164,11 +164,11 @@ bool g_scraping;
 void commentSAX(void * ctx,	const xmlChar * value) {
 	if (strncmp((const char*)value, " Usage", 6) == 0)
 	{
-		g_scraping = true;
+		g_scraping = true;	// start scraping lyrics
 	}
 	if (strncmp((const char*)value, " MxM", 4) == 0)
 	{
-		g_scraping = false;
+		g_scraping = false;	// end scraping lyrics
 	}
 }
 
@@ -182,8 +182,10 @@ void charactersSAX(void * ctx,const xmlChar * ch,int len) {
 }
 
 void startElementSAX(void * ctx, const xmlChar * name, const xmlChar ** atts) {
-	if (!strcmp((const char*)name, "br")) {
-		g_lyrics += "\r\n";
+	if (g_scraping) {
+		if (!strcmp((const char*)name, "br")) {
+			g_lyrics += "\r\n";
+		}
 	}
 }
 

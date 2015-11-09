@@ -3,8 +3,11 @@ This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from
 Component dll:
 Release/foo_lyricsource.dll
 
-Develop enviroment:
+Development enviroment:
 Visual studio Express 2015 for Windows Desktop
+Windows10pro64bit
+foobar2000 1.3.9
+foo_uie_lyric3 0.4.5
 
 Original source:
 https://code.google.com/p/foo-uie-lyrics3/downloads/detail?name=foo_uie_lyrics3%20SDK.zip&can=2&q=
