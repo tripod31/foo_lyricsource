@@ -189,6 +189,13 @@ void startElementSAX(void * ctx, const xmlChar * name, const xmlChar ** atts) {
 	}
 }
 
+std::string removeUnwantedStr(std::string& str) {
+	std::string ret;
+	ret = removeStrRegex(str, R"(\(.*\))");
+	ret = removeStrRegex(str, R"(\[.*\])");
+	ret = removeStrRegex(ret, "([^A-Za-z0-9_])");
+	return ret;
+}
 
 
 bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::ptr& pRequirements, lyric_result_client::ptr p_results )
@@ -203,12 +210,10 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 	std::string artist,title;
 
 	artist = pQuery->artist;
-	artist = removeStrRegex(artist, R"(\(.*\))");
-	artist = removeStrRegex(artist, "([^A-Za-z0-9_])");
+	artist = removeUnwantedStr(artist);
 
 	title = pQuery->title;
-	title = removeStrRegex(title, R"(\(.*\))");
-	title = removeStrRegex(title, "([^A-Za-z0-9_])");
+	title = removeUnwantedStr(title);
 
 	url = "http://www.azlyrics.com/lyrics/";
 	url += artist;
