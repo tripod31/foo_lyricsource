@@ -35,5 +35,5 @@ ChangeLog:
 1st release
 
 2015/11/25
-Fix for access violation error.if download_page() fails,it abort to process.
+Fix for access violation error.If download_page() fails,it aborts to process.
 
