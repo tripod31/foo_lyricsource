@@ -30,4 +30,10 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Google Search"
 "Online DB: Timestamped2"
 
-(2015/11/11)
+ChangeLog:
+2015/11/11
+1st release
+
+2015/11/25
+Fix for access violation error.if download_page() fails,it abort to process.
+

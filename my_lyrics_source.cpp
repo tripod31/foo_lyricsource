@@ -219,47 +219,50 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 	transform(url.begin(), url.end(), url.begin(), tolower);
 
 	pfc::string8 page;
+	bool bRet = m_pHttpClient->download_page( page, "Mozilla Firefox", url.c_str() );
+	const char* pPage = page.c_str();
+	if (bRet && pPage && strlen(pPage)) {		
+		std::string lyrics;
 
-	m_pHttpClient->download_page( page, "Mozilla Firefox", url.c_str() );
-	std::string lyrics;
+		/* DOM scraping
+		htmlDocPtr docPtr = htmlReadMemory(page.c_str(), page.length(), "", "utf-8", HTML_PARSE_RECOVER);
+		if (docPtr)
+		{
+			htmlNodePtr root = xmlDocGetRootElement(docPtr);
+			m_content = "";
+			m_scraping = false;
+			GetLyrics(root);
+			xmlFreeDoc(docPtr);
+			docPtr = NULL;
+		}
+		lyrics = m_content;
+		*/
 
-	/* DOM scraping
-	htmlDocPtr docPtr = htmlReadMemory(page.c_str(), page.length(), "", "utf-8", HTML_PARSE_RECOVER);
-	if (docPtr)
-	{
-		htmlNodePtr root = xmlDocGetRootElement(docPtr);
-		m_content = "";
-		m_scraping = false;
-		GetLyrics(root);
-		xmlFreeDoc(docPtr);
-		docPtr = NULL;
-	}
-	lyrics = m_content;
-	*/
+		// SAX scraping
+		htmlSAXHandler sax = {};
+		sax.comment = &commentSAX;
+		sax.characters = &charactersSAX;
+		sax.startElement = &startElementSAX;
+		g_scraping = false;
+		g_lyrics = "";
 
-	// SAX scraping
-	htmlSAXHandler sax = {};
-	sax.comment = &commentSAX;
-	sax.characters = &charactersSAX;
-	sax.startElement = &startElementSAX;
-	g_scraping = false;
-	g_lyrics = "";
-	htmlSAXParseDoc((xmlChar*)page.c_str(), "UTF-8", &sax, NULL);
-	lyrics = g_lyrics;
+		htmlSAXParseDoc((xmlChar*)pPage, "UTF-8", &sax, NULL);
+		lyrics = g_lyrics;
 
-	lyrics = trim(lyrics);
-	if (lyrics.length() > 0) {
-		//then we use the results client to provide an interface which contains the new lyric 
-		lyric_container_base* new_lyric = p_results->AddResult();
+		lyrics = trim(lyrics);
+		if (lyrics.length() > 0) {
+			//then we use the results client to provide an interface which contains the new lyric 
+			lyric_container_base* new_lyric = p_results->AddResult();
 
-		//This is only for demonstration purposes, you should should set these to what you search source returns.
-		new_lyric->SetFoundInfo(pQuery->artist, pQuery->album, pQuery->title);
+			//This is only for demonstration purposes, you should should set these to what you search source returns.
+			new_lyric->SetFoundInfo(pQuery->artist, pQuery->album, pQuery->title);
 
-		//These tell the user about where the lyric has come from. This is where you should save a web address/file name to allow you to load the lyric
-		new_lyric->SetSources("Custom Source", "Custom Private Source", GetGUID(), ST_INTERNET);
+			//These tell the user about where the lyric has come from. This is where you should save a web address/file name to allow you to load the lyric
+			new_lyric->SetSources("Custom Source", "Custom Private Source", GetGUID(), ST_INTERNET);
 
-		//Copy the lyric text into here
-		new_lyric->SetLyric(lyrics.c_str());
+			//Copy the lyric text into here
+			new_lyric->SetLyric(lyrics.c_str());
+		}
 	}
 	return true;
 }
