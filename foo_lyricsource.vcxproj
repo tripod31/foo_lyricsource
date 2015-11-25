@@ -64,7 +64,7 @@
       <AdditionalLibraryDirectories>D:\devel\foobar2000\libxml2-2.7.8.win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy ..\debug\foo_lyricsource.dll D:\app\foobar2000\user-components\foo_lyricsource\</Command>
+      <Command>copy ..\debug\foo_lyricsource.dll "D:\Program Files (x86)\foobar2000\user-components\foo_lyricsource\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
       <AdditionalDependencies>libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "Release\foo_lyricsource.dll" "D:\app\foobar2000\user-components\foo_lyricsource\"</Command>
+      <Command>copy "Release\foo_lyricsource.dll" "D:\Program Files (x86)\foobar2000\user-components\foo_lyricsource\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
