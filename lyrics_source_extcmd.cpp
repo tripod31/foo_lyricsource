@@ -45,40 +45,19 @@ bool lyrics_source_extcmd::PrepareSearch( const search_info* pQuery, lyric_resul
 
 std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 	std::string ret;
-	ret = util::removeStrRegex(str, R"(\(.*\))");		//(xxx)
-	ret = util::removeStrRegex(ret, R"(\[.*\])");		//[xxx]
-	//ret = removeStrRegex(ret, "([^A-Za-z0-9_])");
+	ret = util::removeStrRegex(str, "\"");		//ダブルクオート
 	return ret;
 }
 
 std::string lyrics_source_extcmd::exec_extcmd(std::string artist,std::string song)
 {
-
-	char   psBuffer[1024];
-	FILE   *pPipe;
-
-	/* Run DIR so that it writes its output to a pipe. Open this
-	* pipe with read text attribute so that we can read it
-	* like a text file.
-	*/
-
 	std::string lyric = "";
 	std::string cmd = "python get_lyric.py --artist \"" + removeUnwantedStr(artist) + "\""
 		+ " --song \"" + removeUnwantedStr(song) + "\"";
+	WCHAR cmdW[255];
+	int err = util::char2wide(cmd.c_str(),cmdW );
+	bool ret = util::create_cmd_process(cmdW,lyric);
 
-	if ((pPipe = _popen(cmd.c_str(), "rt")) == NULL)
-		return "";
-
-	/* Read pipe until end of file, or an error occurs. */
-
-	while (fgets(psBuffer, sizeof(psBuffer), pPipe))
-	{
-		lyric+=psBuffer;
-	}
-
-
-	/* Close pipe and print return value of pPipe. */
-	int ret = feof(pPipe);
 	return lyric;
 }
 

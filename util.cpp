@@ -9,9 +9,22 @@ errno_t util::wide2char(LPWSTR wstr, char* cstr) {
 	errno_t err = 0;
 
 	//ロケール指定
-	setlocale(LC_ALL, "japanese");
+	//setlocale(LC_ALL, "japanese");
 	//変換
 	err = wcstombs_s(&wLen, cstr, 255, wstr, _TRUNCATE);
+	return err;
+}
+
+//マルチバイト文字列(char*)をワイド文字列(WCHAR*)に変換
+errno_t util::char2wide(const char* cstr, LPWSTR wstr) {
+
+	size_t wLen = 0;
+	errno_t err = 0;
+
+	//ロケール指定
+	//setlocale(LC_ALL, "japanese");
+	//変換
+	err = mbstowcs_s(&wLen, wstr, 255, cstr, _TRUNCATE);
 	return err;
 }
 
@@ -55,9 +68,8 @@ void util::removeChars(std::string& str, const char* chars) {
 }
 
 
-bool util::create_cmd_process(TCHAR* opt, std::string& out) {
-	char mem[80 * 25 * 10];	//	標準出力のバッファ
-	DWORD memSz = 0;	//	標準出力のバッファの有効データー数
+bool util::create_cmd_process(TCHAR* command, std::string& outbuf) {
+	outbuf = "";
 
 	//	パイプの作成
 	HANDLE readPipe;
@@ -79,10 +91,9 @@ bool util::create_cmd_process(TCHAR* opt, std::string& out) {
 	si.hStdOutput = writePipe;
 	si.hStdError = writePipe;
 	si.wShowWindow = SW_HIDE;
-	TCHAR cmd[MAX_PATH];
-	//	プロセスの起動(cmd.exe)
-	_stprintf_s(cmd, sizeof(cmd) / sizeof(TCHAR), _TEXT("cmd.exe /K %s"), opt);
-	if (CreateProcess(NULL, cmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi) == 0) {
+
+	//	プロセスの起動
+	if (CreateProcess(NULL, command, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi) == 0) {
 		//MessageBox(0, _TEXT("プロセスの作成に失敗しました"), _TEXT("エラー"), MB_OK);
 		return false;
 	}
@@ -100,14 +111,9 @@ bool util::create_cmd_process(TCHAR* opt, std::string& out) {
 			if (ReadFile(readPipe, readBuf, sizeof(readBuf) - 1, &len, NULL) == 0)
 				return false;
 			readBuf[len] = 0;
-
-			if (sizeof(mem) - 1<memSz + len) {	//メモリがあふれないようにクリアする
-				mem[0] = 0;
-				memSz = 0;
-			}
-			memSz += len;
-			strcat_s(mem, sizeof(mem), readBuf);
-			if (totalLen>len)	//	プロセスは終了しているがまだデータがーが残っているので終了を保留
+			
+			outbuf += readBuf;
+			if (totalLen>len)	//	プロセスは終了しているがまだデーターが残っているので終了を保留
 				end = false;
 		}
 	} while (end == false);
@@ -122,7 +128,6 @@ bool util::create_cmd_process(TCHAR* opt, std::string& out) {
 	}
 	CloseHandle(pi.hProcess);
 
-	out = mem;
 	return true;
 }
 
