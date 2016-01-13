@@ -31,17 +31,18 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source(Added:2016/01/13)  
-Place get_lyrics.py to the directory where foobar2000.exe resides.  
+Place "get_lyrics.py" to the directory where foobar2000.exe resides.  
 To use this script,you need to install python3,and required libraries.  
 To install libraries,After you installed python3,in command prompt:  
 >pip install robobrowser beautifulsoup
 
-##To modify get_lyric.py
+##To modify "get_lyric.py"
 Currentry this python script search lyric from "www.lyrics.az".You can modify the script.  
 The script is executed by foo_lyricsource.dll,with argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
-and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.
+and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
+Currentry this script put some debug imformation to "get_lyric.log" at the same directory.
 
 ##ChangeLog  
 ####2015/11/11  
