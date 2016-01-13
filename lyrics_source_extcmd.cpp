@@ -42,21 +42,6 @@ bool lyrics_source_extcmd::PrepareSearch( const search_info* pQuery, lyric_resul
 	return true;
 }
 
-const int STR_LEN_MAX = 255;
-
-//ワイド文字列(WCHAR*)をマルチバイト文字列(char*)に変換
-errno_t wide2char(LPWSTR wstr,char* cstr) {
-	
-
-	size_t wLen = 0;
-	errno_t err = 0;
-
-	//ロケール指定
-	setlocale(LC_ALL, "japanese");
-	//変換
-	err = wcstombs_s(&wLen, cstr, STR_LEN_MAX, wstr, _TRUNCATE);
-	return err;
-}
 
 std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 	std::string ret;
@@ -68,9 +53,8 @@ std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 
 std::string lyrics_source_extcmd::exec_extcmd(std::string artist,std::string song)
 {
-	const int BUFF_SIZE = 1024;
 
-	char   psBuffer[BUFF_SIZE];
+	char   psBuffer[1024];
 	FILE   *pPipe;
 
 	/* Run DIR so that it writes its output to a pipe. Open this
