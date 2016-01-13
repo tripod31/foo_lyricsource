@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include <algorithm>
 #include <regex>
+#include "libxml\HTMLparser.h"
+#include <string>
+#include "util.h"
 
 //You must use your own GUID, this one is for example purposes only (in VS2010 Tools->Create GUID).
 // {E0FCD77D-9A52-4D70-9225-9E960FABBF2E}
@@ -43,120 +46,6 @@ bool my_lyrics_source::PrepareSearch( const search_info* pQuery, lyric_result_cl
 	return true;
 }
 
-void strReplace(std::string& str, const std::string& from, const std::string& to) {
-	std::string::size_type pos = 0;
-	while (pos = str.find(from, pos), pos != std::string::npos) {
-		str.replace(pos, from.length(), to);
-		pos += to.length();
-	}
-}
-
-
-std::string trim(const std::string& string, const char* trimCharacterList = " \t\v\r\n")
-{
-	std::string result;
-
-	// 左側からトリムする文字以外が見つかる位置を検索します。
-	std::string::size_type left = string.find_first_not_of(trimCharacterList);
-	if (left != std::string::npos)
-	{
-		// 左側からトリムする文字以外が見つかった場合は、同じように右側からも検索します。
-		std::string::size_type right = string.find_last_not_of(trimCharacterList);
-
-		// 戻り値を決定します。ここでは右側から検索しても、トリムする文字以外が必ず存在するので判定不要です。
-		result = string.substr(left, right - left + 1);
-	}
-	return result;
-}
-
-void removeChars( std::string& str, const char* chars = " \t\v\r\n") {
-	for (size_t c = str.find_first_of(chars); c != std::string::npos; c = c = str.find_first_of(chars)) {
-		str.erase(c, 1);
-	}
-
-}
-
-std::string removeStrRegex(std::string& str,const char* pattern) {
-	std::regex re(pattern);
-	std::string ret = std::regex_replace(str, re, "");
-	return ret;
-}
-
-/* for DOM scraping
-// find node that contains lyrics
-xmlNode* my_lyrics_source::FindNode(xmlNode*& element) {
-	for (htmlNodePtr node = element; node != NULL; node = node->next) {
-		if (node->type == XML_ELEMENT_NODE) {
-			if (xmlStrcasecmp(node->name, (const xmlChar*)"div") == 0) {
-				xmlChar* cls = xmlGetProp(node, (const xmlChar*)"class");
-				if (xmlStrcasecmp(cls, (const xmlChar*)"ringtone") == 0) {
-					return node;
-				}
-			}
-
-		}
-		if (node->children != NULL)
-		{
-			xmlNode* n = FindNode(node->children);
-			if (n) return n;
-		}
-	}
-
-	return NULL;
-}
-
-// get text below the node
-void my_lyrics_source::GetContent(xmlNode*& element) {
-	for (htmlNodePtr node = element; node != NULL; node = node->next) {
-		if (node->type == XML_TEXT_NODE) {
-			if (node->content){
-				m_content += (const char*)node->content;
-			}
-
-		}
-		if (node->children != NULL)
-		{
-			GetContent(node->children);
-		}
-	}
-}
-
-void my_lyrics_source::GetLyrics(xmlNode*& element) {
-	for (htmlNodePtr node = element; node != NULL; node = node->next) {
-		if (node->type == XML_COMMENT_NODE) {
-			if (strncmp((const char*)node->content, " Usage", 6) == 0) {
-				m_scraping = true;
-			}
-		}
-		if (node->type == XML_COMMENT_NODE) {
-			if (strncmp((const char*)node->content, " MxM", 4) == 0) {
-				m_scraping = false;
-			}
-		}
-		if (m_scraping) {
-			if (node->type == XML_TEXT_NODE) {
-				if (node->content) {
-					std::string lyric = (const char*)node->content;
-					strReplace(lyric, "\n", "");
-					m_content += lyric;
-				}
-			}
-			if (node->type == XML_ELEMENT_NODE) {
-				if (!strcmp((const char*)node->name,"br")) {
-					m_content += "\r\n";
-				}
-			}
-		}
-
-
-		if (node->children != NULL)
-		{
-			GetLyrics(node->children);
-		}
-	}
-}
-*/
-
 // for SAX scraping
 std::string g_lyrics;
 bool g_scraping;
@@ -189,14 +78,13 @@ void startElementSAX(void * ctx, const xmlChar * name, const xmlChar ** atts) {
 	}
 }
 
-std::string removeUnwantedStr(std::string& str) {
+std::string my_lyrics_source::removeUnwantedStr(std::string& str) {
 	std::string ret;
-	ret = removeStrRegex(str, R"(\(.*\))");
-	ret = removeStrRegex(str, R"(\[.*\])");
+	ret = removeStrRegex(str, R"(\(.*\))");		//(xxx)
+	ret = removeStrRegex(ret, R"(\[.*\])");		//[xxx]
 	ret = removeStrRegex(ret, "([^A-Za-z0-9_])");
 	return ret;
 }
-
 
 bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::ptr& pRequirements, lyric_result_client::ptr p_results )
 {

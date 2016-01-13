@@ -1,34 +1,32 @@
-#ifndef _MY_LYRICS_SOURCE
-#define _MY_LYRICS_SOURCE
-
-
+#ifndef _lyrics_source_extcmd
+#define _lyrics_source_extcmd
 
 //see lyric_source_base.h for explanations of what you need to to in each method
 
 //This is an example of how to create your own search_requirements.
 //This allows you to safely store data between calls to PrepareSearch() and Search()
-class custom_search_requirements : public search_requirements
+class search_requirements_extcmd : public search_requirements
 {
 public:
 	pfc::string8 some_example_string;
 
 	//This must be declared as an entrypoint service (otherwise you'll get a service duplication exception)
-	FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT( custom_search_requirements );
+	FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT( search_requirements_extcmd );
 };
 
-class my_lyrics_source : public lyric_source_base
+class lyrics_source_extcmd : public lyric_source_base
 {
 	//do your http requests through this. It automatically uses the user's proxy/timeout settings 
 	lyric_http_request::ptr m_pHttpClient;
 
 	std::string removeUnwantedStr(std::string& str);
+	std::string lyrics_source_extcmd::exec_extcmd(std::string artist, std::string song);
 public:
 
+	lyrics_source_extcmd() : lyric_source_base() {};
+	~lyrics_source_extcmd() {};
 
-	my_lyrics_source() : lyric_source_base() {};
-	~my_lyrics_source() {};
-
-	void GetName( pfc::string_base& out ) { out = "www.azlyrics.com"; }
+	void GetName( pfc::string_base& out ) { out = "external command"; }
 
 	const GUID GetGUID();
 
