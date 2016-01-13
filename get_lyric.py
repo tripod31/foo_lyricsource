@@ -6,6 +6,7 @@ from robobrowser import RoboBrowser
 import argparse
 from bs4 import element
 import io
+import logging
 
 '''
 www.lyrics.azからlyricを取得
@@ -47,21 +48,21 @@ def get_lyric(artist,song):
     #find artist
     artists = browser.find_all('a',text=re.compile(r'%s' % artist,re.IGNORECASE))
     if artists is None or len(artists)==0:
-        ret=""
-        return ret
+        logging.info("artist not found.artist:[%s]song:[%s]" % (artist,song))
+        return ""
     browser.follow_link(artists[0])
     
     #find song
     songs = browser.find_all('a',text=re.compile(r'%s' % song,re.IGNORECASE))
     if songs is None or len(songs)==0:
-        ret= ""
-        return ret
+        logging.info("song not found.artist:[%s]song:[%s]" % (artist,song))
+        return ""
     browser.follow_link(songs[0])
     
     lyrics = browser.find_all('span',id="lyrics")
     if lyrics is None or len(lyrics)==0:
-        ret=""
-        return
+        logging.info("lyric not found.artist:[%s]song:[%s]" % (artist,song))
+        return ""
     buf = io.StringIO()
     get_text(lyrics[0],buf)
     ret = buf.getvalue()
@@ -74,7 +75,12 @@ if __name__ == '__main__':
     parser.add_argument('--song')
     
     args=parser.parse_args()
-    lyric=get_lyric(args.artist, args.song)
+    logging.basicConfig(filename='get_lyric.log',level=logging.INFO)
+    
+    lyric=""
+    try:
+        lyric=get_lyric(args.artist, args.song)
+    except Exception as e:
+        logging.error("artist:[%s]song:[%s]error:[%s]" % (args.artist,args.song,e))
     if len(lyric)>0:
-        print(lyric)
-        
+        print(lyric,end="")
