@@ -10,7 +10,7 @@ foo_uie_lyric3 0.4.5
 **Original source**  
 https://code.google.com/p/foo-uie-lyrics3/downloads/detail?name=foo_uie_lyrics3%20SDK.zip&can=2&q=  
 https://foo-uie-lyrics3.googlecode.com/files/foo_uie_lyrics3%20SDK.zip  
-What I changed mainly are my_lyrics_source.cpp/h.
+What I changed mainly are my_lyrics_source.cpp/h.  
 **Requirements**  
 iconv and libxml2.  
 download  
@@ -24,9 +24,7 @@ After installing the new component and placing the 2 DLLs in the Foobar director
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
 "Online DB: Google Search"  
 "Online DB: Timestamped2"  
-
-(Added:2016/01/13)  
-**To Use "External Command" Source**  
+**To Use "External Command" Source(Added:2016/01/13)  **  
 Place get_lyrics.py to the directory where foobar2000.exe resides.  
 To use this script,you need to install python3,and required libraries.  
 To install libraries,After you installed python3,in command prompt:  
