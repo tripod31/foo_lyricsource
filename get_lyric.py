@@ -29,44 +29,54 @@ def get_text(node,buf):
 def remove_unwanted_chars(str):
     str=re.sub('\(.*\)','',str) #(・・・)
     str=re.sub('\[.*\]','',str) #[・・・]
-    str= re.sub('[\*\(\)\[\]]',"",str)
+    str= re.sub('[^A-Za-z0-9 \']+',' ',str) #許可する文字:英数字、半角スペース、"'"
+    str=str.strip() #前後の空白を除く
     return str
 
 def get_lyric(artist,song):
-    #引数から不要な文字を除く
-    artist = remove_unwanted_chars(artist)
-    song = remove_unwanted_chars(song)
     
     browser = RoboBrowser(parser="html.parser",history=True)
     browser.open('https://www.lyrics.az/')
     
-    #search by artist
+    #search artist
     form = browser.get_form(action='/')
     form['keyword'].value = artist
     browser.submit_form(form)
     
-    #find artist
-    artists = browser.find_all('a',text=re.compile(r'%s' % artist,re.IGNORECASE))
-    if artists is None or len(artists)==0:
-        logging.info("artist not found.artist:[%s]song:[%s]" % (artist,song))
+    #click artist
+    node = browser.find('a',text=re.compile(r'%s' % artist,re.IGNORECASE))
+    if node is None:
+        logging.warn("artist not found.artist:[%s]song:[%s]" % (artist,song))
         return ""
-    browser.follow_link(artists[0])
+    browser.follow_link(node)
+    
+    #click "View All Songs"
+    node = browser.find('a',text=re.compile(r'View All songs'))
+    if node is None:
+        logging.warn("[View All Songs]link not found.artist:[%s]song:[%s]" % (artist,song))
+        return ""
+    browser.follow_link(node)
     
     #find song
-    songs = browser.find_all('a',text=re.compile(r'%s' % song,re.IGNORECASE))
-    if songs is None or len(songs)==0:
-        logging.info("song not found.artist:[%s]song:[%s]" % (artist,song))
+    node = browser.find(lambda tag:
+                        tag.name=='a' and 
+                        re.search(r'%s' % song,str(tag),re.IGNORECASE) is not None)
+    if node is None:
+        logging.warn("song not found.artist:[%s]song:[%s]" % (artist,song))
         return ""
-    browser.follow_link(songs[0])
+    browser.follow_link(node)
     
     lyrics = browser.find_all('span',id="lyrics")
     if lyrics is None or len(lyrics)==0:
-        logging.info("lyric not found.artist:[%s]song:[%s]" % (artist,song))
+        logging.warn("lyric not found.artist:[%s]song:[%s]" % (artist,song))
         return ""
     buf = io.StringIO()
     get_text(lyrics[0],buf)
-    ret = buf.getvalue()
-    return ret
+    lyric = buf.getvalue()
+    if lyric.startswith("We haven't lyrics of this song."):
+        logging.warn("lyric not found.artist:[%s]song:[%s]" % (artist,song))
+        return ""
+    return lyric
 
 if __name__ == '__main__':
     #引数
@@ -75,12 +85,16 @@ if __name__ == '__main__':
     parser.add_argument('--song')
     
     args=parser.parse_args()
-    logging.basicConfig(filename='get_lyric.log',level=logging.INFO)
+    logging.basicConfig(filename='get_lyric.log',level=logging.WARN,filemode = "w")
+    
+    #引数から不要な文字を除く
+    artist = remove_unwanted_chars(args.artist)
+    song = remove_unwanted_chars(args.song)
     
     lyric=""
     try:
-        lyric=get_lyric(args.artist, args.song)
+        lyric=get_lyric(artist, song)
     except Exception as e:
-        logging.error("artist:[%s]song:[%s]error:[%s]" % (args.artist,args.song,e))
+        logging.error("artist:[%s]song:[%s]error:[%s]" % (artist,song,e))
     if len(lyric)>0:
         print(lyric,end="")
