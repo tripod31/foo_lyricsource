@@ -1,4 +1,4 @@
-This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from www.azlyrics.com.
+This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from "www.azlyrics.com".
 
 Component dll:
 Release/foo_lyricsource.dll
@@ -30,6 +30,19 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Google Search"
 "Online DB: Timestamped2"
 
+(Added:2016/01/13)
+To Use "External Command" Source:
+Place get_lyrics.py to the directory where foobar2000.exe resides.
+To use this script,you need to install python3,and required libraries.
+To install libraries,After you installed python3,in command prompt:
+pip install robobrowser beautifulsoup
+
+To modify get_lyric.py:
+Currentry this python script search lyric from "www.lyrics.az".You can modify the script.
+The script is executed by foo_lyricsource.dll,with argument format:
+python get_lyrics.py --artist "artist" --song "song"
+and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.
+
 ChangeLog:
 2015/11/11
 1st release
@@ -37,3 +50,7 @@ ChangeLog:
 2015/11/25
 Fix for access violation error.If download_page() fails,it aborts to process.
 
+2016/01/13
+Currently,I can't access to "www.azlyrics.com".Maybe connection from my country is blocked?
+So I added "external command" source.Explanation is above.
+I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.

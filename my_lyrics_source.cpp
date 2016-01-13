@@ -9,16 +9,16 @@
 #include "util.h"
 
 //You must use your own GUID, this one is for example purposes only (in VS2010 Tools->Create GUID).
-// {E0FCD77D-9A52-4D70-9225-9E960FABBF2E}
-const GUID custom_search_requirements::class_guid = 
-{ 0xe0fcd77d, 0x9a52, 0x4d70, { 0x92, 0x25, 0x9e, 0x96, 0xf, 0xab, 0xbf, 0x2e } };
+// {4720040D-CA9D-4DF9-89C5-4EC51813C309}
+const GUID custom_search_requirements::class_guid =
+{ 0x4720040d, 0xca9d, 0x4df9,{ 0x89, 0xc5, 0x4e, 0xc5, 0x18, 0x13, 0xc3, 0x9 } };
 
 static const service_factory_t< custom_search_requirements > custom_search_requirements_factory;
 
 //You must use your own GUID, this one is for example purposes only.
-// {B9BF008E-F28B-4B4E-A784-D07AC238BA3E}
-static const GUID guid = 
-{ 0xb9bf008e, 0xf28b, 0x4b4e, { 0xa7, 0x84, 0xd0, 0x7a, 0xc2, 0x38, 0xba, 0x3e } };
+// {B7239BE7-3FE6-4BCC-B099-F85DF76D07B5}
+static const GUID guid =
+{ 0xb7239be7, 0x3fe6, 0x4bcc,{ 0xb0, 0x99, 0xf8, 0x5d, 0xf7, 0x6d, 0x7, 0xb5 } };
 
 static const source_factory<my_lyrics_source> my_lyrics_source_factory;
 
@@ -65,7 +65,7 @@ void commentSAX(void * ctx,	const xmlChar * value) {
 void charactersSAX(void * ctx,const xmlChar * ch,int len) {
 	if (g_scraping) {
 		std::string lyric = (const char*)ch;
-		removeChars(lyric, "\r\n");
+		util::removeChars(lyric, "\r\n");
 		g_lyrics += lyric;
 	}
 }
@@ -80,9 +80,9 @@ void startElementSAX(void * ctx, const xmlChar * name, const xmlChar ** atts) {
 
 std::string my_lyrics_source::removeUnwantedStr(std::string& str) {
 	std::string ret;
-	ret = removeStrRegex(str, R"(\(.*\))");		//(xxx)
-	ret = removeStrRegex(ret, R"(\[.*\])");		//[xxx]
-	ret = removeStrRegex(ret, "([^A-Za-z0-9_])");
+	ret = util::removeStrRegex(str, R"(\(.*\))");		//(xxx)
+	ret = util::removeStrRegex(ret, R"(\[.*\])");		//[xxx]
+	ret = util::removeStrRegex(ret, "([^A-Za-z0-9_])");
 	return ret;
 }
 
@@ -142,7 +142,7 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 		htmlSAXParseDoc((xmlChar*)pPage, "UTF-8", &sax, NULL);
 		lyrics = g_lyrics;
 
-		lyrics = trim(lyrics);
+		lyrics = util:: trim(lyrics);
 		if (lyrics.length() > 0) {
 			//then we use the results client to provide an interface which contains the new lyric 
 			lyric_container_base* new_lyric = p_results->AddResult();

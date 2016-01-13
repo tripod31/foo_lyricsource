@@ -60,8 +60,8 @@ errno_t wide2char(LPWSTR wstr,char* cstr) {
 
 std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 	std::string ret;
-	ret = removeStrRegex(str, R"(\(.*\))");		//(xxx)
-	ret = removeStrRegex(ret, R"(\[.*\])");		//[xxx]
+	ret = util::removeStrRegex(str, R"(\(.*\))");		//(xxx)
+	ret = util::removeStrRegex(ret, R"(\[.*\])");		//[xxx]
 	//ret = removeStrRegex(ret, "([^A-Za-z0-9_])");
 	return ret;
 }
