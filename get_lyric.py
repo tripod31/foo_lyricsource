@@ -37,6 +37,15 @@ class www_lyrics_az(scraper_base):
         s=s.strip() #前後の空白を除く
         return s
     
+    def test_tag(self,tag,song):
+        if tag.name !='a':
+            return False
+        buf = io.StringIO()
+        self.get_text(tag, buf)
+        if re.match(r'^%s$' % song,buf.getvalue(),re.IGNORECASE) is None:
+            return False       
+        return True
+    
     def get_lyric(self,artist,song):
         
         browser = RoboBrowser(parser="html.parser",history=True)
@@ -48,7 +57,7 @@ class www_lyrics_az(scraper_base):
         browser.submit_form(form)
         
         #click artist
-        node = browser.find('a',text=re.compile(r'%s' % artist,re.IGNORECASE))
+        node = browser.find('a',text=re.compile(r'^%s$' % artist,re.IGNORECASE))
         if node is None:
             logging.warn("artist not found.artist:[%s]song:[%s]" % (artist,song))
             return ""
@@ -62,9 +71,7 @@ class www_lyrics_az(scraper_base):
         browser.follow_link(node)
         
         #find song
-        node = browser.find(lambda tag:
-                            tag.name=='a' and 
-                            re.search(r'%s' % song,str(tag),re.IGNORECASE) is not None)
+        node = browser.find(lambda tag:self.test_tag(tag,song))
         if node is None:
             logging.warn("song not found.artist:[%s]song:[%s]" % (artist,song))
             return ""
