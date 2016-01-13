@@ -74,11 +74,7 @@ if __name__ == '__main__':
     parser.add_argument('--song')
     
     args=parser.parse_args()
-    try:
-        lyric=get_lyric(args.artist, args.song)
-    except Exception as e:
-        lyric = "artist:%s\nsong:%s\nerror:%s" % (args.artist,args.song,e)
-        
+    lyric=get_lyric(args.artist, args.song)
     if len(lyric)>0:
         print(lyric)
         
