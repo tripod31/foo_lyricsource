@@ -117,20 +117,6 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 	if (bRet && pPage && strlen(pPage)) {		
 		std::string lyrics;
 
-		/* DOM scraping
-		htmlDocPtr docPtr = htmlReadMemory(page.c_str(), page.length(), "", "utf-8", HTML_PARSE_RECOVER);
-		if (docPtr)
-		{
-			htmlNodePtr root = xmlDocGetRootElement(docPtr);
-			m_content = "";
-			m_scraping = false;
-			GetLyrics(root);
-			xmlFreeDoc(docPtr);
-			docPtr = NULL;
-		}
-		lyrics = m_content;
-		*/
-
 		// SAX scraping
 		htmlSAXHandler sax = {};
 		sax.comment = &commentSAX;

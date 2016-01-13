@@ -9,13 +9,13 @@ import io
 import logging
 
 '''
-スクレイピングのための基底クラス
+base class for scraping
 '''
 class scraper_base:
 
     '''
-    beautifulsoupのnodeを指定してそのタグ以下の内容をテキストで返す
-    buf    StringIO:テキストを戻すためのバッファ
+    retreive texts under node of beautifulsoup
+    buf    StringIO:buffer to output text
     '''
     def get_text(self,node,buf):
         if isinstance(node,element.Tag):
@@ -28,7 +28,7 @@ class scraper_base:
             buf.write(t)
 
 '''
-www.lyrics.azからlyricを取得
+get lyric from "www.lyrics.az"
 '''
 class www_lyrics_az(scraper_base):
     def __init__(self,artist,song):
@@ -38,8 +38,8 @@ class www_lyrics_az(scraper_base):
     def remove_unwanted_chars(self,s):
         s=re.sub('\(.*\)','',s) #(・・・)
         s=re.sub('\[.*\]','',s) #[・・・]
-        s= re.sub('[^A-Za-z0-9 \']+',' ',s) #許可する文字:英数字、半角スペース、"'"
-        s=s.strip() #前後の空白を除く
+        s= re.sub('[^A-Za-z0-9 \']+',' ',s) #allowed char:alphanumeric character,number,space,"'"
+        s=s.strip() #remove white character at head and tail
         return s
     
     def test_tag(self,tag):
@@ -92,7 +92,7 @@ class www_lyrics_az(scraper_base):
         if lyric.startswith("We haven't lyrics of this song."):
             logging.warn("lyric not found.artist:[%s]song:[%s]" % (self.artist,self.song))
             return ""
-        lyric=lyric.replace("´", "'")   #dllに返せない？文字を除く
+        lyric=lyric.replace("´", "'")   #remove character that can't be passed to dll
         return lyric
 
 if __name__ == '__main__':

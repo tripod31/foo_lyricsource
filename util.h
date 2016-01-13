@@ -4,7 +4,7 @@
 #include <regex>
 class util {
 public:
-	//ワイド文字列(WCHAR*)をマルチバイト文字列(char*)に変換
+	
 	static errno_t wide2char(LPWSTR wstr, char* cstr);
 	static errno_t char2wide(const char* cstr,LPWSTR wstr);
 	static std::string removeStrRegex(std::string& str, const char* pattern);

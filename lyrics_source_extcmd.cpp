@@ -45,7 +45,7 @@ bool lyrics_source_extcmd::PrepareSearch( const search_info* pQuery, lyric_resul
 
 std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 	std::string ret;
-	ret = util::removeStrRegex(str, "\"");		//ダブルクオート
+	ret = util::removeStrRegex(str, "\"");
 	return ret;
 }
 
