@@ -24,13 +24,14 @@ Place these dll files to the directory that is containd in PATH enviromment,or t
 libxml2.dll  
 iconv.dll  
 
-##Configuration  
+##Foobar2000 Configuration  
 After installing the new component and placing the 2 DLLs in the Foobar directory, Go to Preferences > Tools > Lyric Show 3 and add "www.azlyrics.com" from 'Available Sources' to 'Search Order'.  
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
 "Online DB: Google Search"  
 "Online DB: Timestamped2"  
 
-##To Use "External Command" Source(Added:2016/01/13)  
+##To Use "External Command" Source  
+Foobar2000 Configuration is Same as above. 
 Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
@@ -41,7 +42,7 @@ To install libraries,After you installed python3,in command prompt:
 
 ##get_lyric.py
 This python script search lyric from sites.  
-The script is executed by foo_lyricsource.dll,with argument format:  
+The script is executed by foo_lyricsource.dll,with this argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
