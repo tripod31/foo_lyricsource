@@ -36,13 +36,14 @@ To use this script,you need to install python3,and required libraries.
 To install libraries,After you installed python3,in command prompt:  
 >pip install robobrowser beautifulsoup
 
-##To modify "get_lyric.py"
+##"get_lyric.py"
 Currentry this python script search lyric from "www.lyrics.az".You can modify the script.  
 The script is executed by foo_lyricsource.dll,with argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
-Currentry this script put some debug imformation to "get_lyric.log" at the same directory.
+This script put some debug imformation to "get_lyric.log" at the same directory.  
+Newer virsion of this script is in https://github.com/tripod31/get_lyric
 
 ##ChangeLog  
 ####2015/11/11  
