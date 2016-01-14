@@ -1,5 +1,5 @@
 # foo_lyricsource.dll
-This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from "www.azlyrics.com"  
+This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from sites.  
 
 ##Component dll  
 Release/foo_lyricsource.dll  
@@ -40,7 +40,7 @@ To install libraries,After you installed python3,in command prompt:
 >pip install robobrowser beautifulsoup
 
 ##get_lyric.py
-Currentry this python script search lyric from "www.lyrics.az".You can modify the script.  
+This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
@@ -56,6 +56,5 @@ Newer version of this script is in https://github.com/tripod31/get_lyric
 Fix for access violation error.If download_page() fails,it aborts to process.
 
 ####2016/01/13  
-Currently,I can't access to "www.azlyrics.com".Maybe connection from my country is blocked?  
-So I added "external command" source.Explanation is above.  
-I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.
+Added "external command" source.Explanation is above.  
+Currently,I can't access to "www.azlyrics.com".I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.
