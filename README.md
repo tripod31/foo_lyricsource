@@ -31,7 +31,10 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source(Added:2016/01/13)  
-Place "get_lyrics.py" and "get_lyrics"directory,to the directory where foobar2000.exe resides.  
+Place those files to the directory where foobar2000.exe resides.  
+"get_lyrics.py"  
+"get_lyrics" directory  
+
 To use this script,you need to install python3,and required libraries.  
 To install libraries,After you installed python3,in command prompt:  
 >pip install robobrowser beautifulsoup
