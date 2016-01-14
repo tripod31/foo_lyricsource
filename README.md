@@ -43,7 +43,7 @@ The script is executed by foo_lyricsource.dll,with argument format:
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This script put some debug imformation to "get_lyric.log" at the same directory.  
-Newer virsion of this script is in https://github.com/tripod31/get_lyric
+Newer version of this script is in https://github.com/tripod31/get_lyric
 
 ##ChangeLog  
 ####2015/11/11  
