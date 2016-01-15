@@ -31,7 +31,7 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source(Added:2016/01/13)  
-Place those files to the directory where foobar2000.exe resides.  
+From https://github.com/tripod31/get_lyric,Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
 
