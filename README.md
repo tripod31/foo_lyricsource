@@ -1,5 +1,5 @@
 # foo_lyricsource.dll
-This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from "www.azlyrics.com"  
+This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from sites.  
 
 ##Component dll  
 Release/foo_lyricsource.dll  
@@ -24,14 +24,14 @@ Place these dll files to the directory that is containd in PATH enviromment,or t
 libxml2.dll  
 iconv.dll  
 
-##Configuration  
+##Foobar2000 Configuration  
 After installing the new component and placing the 2 DLLs in the Foobar directory, Go to Preferences > Tools > Lyric Show 3 and add "www.azlyrics.com" from 'Available Sources' to 'Search Order'.  
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
 "Online DB: Google Search"  
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source(Added:2016/01/13)  
-From https://github.com/tripod31/get_lyric,Place those files to the directory where foobar2000.exe resides.  
+Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
 
@@ -40,8 +40,8 @@ To install libraries,After you installed python3,in command prompt:
 >pip install robobrowser beautifulsoup
 
 ##get_lyric.py
-Currentry this python script search lyric from "www.lyrics.az".You can modify the script.  
-The script is executed by foo_lyricsource.dll,with argument format:  
+This python script search lyric from sites.  
+The script is executed by foo_lyricsource.dll,with this argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
@@ -54,6 +54,5 @@ This script put some debug imformation to "get_lyric.log" at the same directory.
 Fix for access violation error.If download_page() fails,it aborts to process.
 
 ####2016/01/13  
-Currently,I can't access to "www.azlyrics.com".Maybe connection from my country is blocked?  
-So I added "external command" source.Explanation is above.  
-I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.
+Added "external command" source.Explanation is above.  
+Currently,I can't access to "www.azlyrics.com".I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.
