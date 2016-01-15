@@ -31,7 +31,7 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source(Added:2016/01/13)  
-Place those files to the directory where foobar2000.exe resides.  
+From https://github.com/tripod31/get_lyric,Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
 
@@ -46,8 +46,6 @@ The script is executed by foo_lyricsource.dll,with argument format:
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This script put some debug imformation to "get_lyric.log" at the same directory.  
-Newer version of this script is in https://github.com/tripod31/get_lyric
-
 ##ChangeLog  
 ####2015/11/11  
 1st release  
