@@ -1,21 +1,26 @@
-# foo_lyricsource.dll
+foo_lyricsource.dll
+=====
 This is the lyricsource componet for foo_uie_lyrics3.dll.It retrives lyrics from sites.  
 
-##Component dll  
+Component dll  
+-----
 Release/foo_lyricsource.dll  
 
-##Development enviroment  
+Development enviroment  
+-----
 Visual studio Express 2015 for Windows Desktop  
 Windows10pro64bit  
 foobar2000 1.3.9  
 foo_uie_lyric3 0.4.5  
 
-##Original source
+Original source
+-----
 <https://code.google.com/p/foo-uie-lyrics3/downloads/detail?name=foo_uie_lyrics3%20SDK.zip&can=2&q=>  
 <https://foo-uie-lyrics3.googlecode.com/files/foo_uie_lyrics3%20SDK.zip>  
 What I changed mainly are my_lyrics_source.cpp/h.  
 
-##Requirements  
+Requirements  
+-----
 iconv and libxml2.  
 download  
 <http://xmlsoft.org/sources/win32/iconv-1.9.2.win32.zip>  
@@ -24,13 +29,15 @@ Place these dll files to the directory that is containd in PATH enviromment,or t
 libxml2.dll  
 iconv.dll  
 
-##Foobar2000 Configuration  
+Foobar2000 Configuration  
+-----
 After installing the new component and placing the 2 DLLs in the Foobar directory, Go to Preferences > Tools > Lyric Show 3 and add "www.azlyrics.com" from 'Available Sources' to 'Search Order'.  
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
 "Online DB: Google Search"  
 "Online DB: Timestamped2"  
 
-##To Use "External Command" Source  
+To Use "External Command" Source  
+-----
 Configuration of foobar2000 is same as abobe,except,source name is "External Command".  
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
@@ -40,14 +47,16 @@ To use this script,you need to install python3,and required libraries.
 To install libraries,After you installed python3,in command prompt:  
 >pip install robobrowser beautifulsoup
 
-##get_lyric.py
+get_lyric.py
+-----
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
 >python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This script put some debug imformation to "get_lyric.log" at the same directory.  
-##ChangeLog  
+ChangeLog  
+-----
 ####2015/11/11  
 1st release  
 
