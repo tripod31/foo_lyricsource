@@ -31,7 +31,7 @@ I would suggest deactivating those source by moving it back to 'Available Source
 "Online DB: Timestamped2"  
 
 ##To Use "External Command" Source  
-Configuration of foobar2000 is same as abobe,except,source name is "External Command".
+Configuration of foobar2000 is same as abobe,except,source name is "External Command".  
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
@@ -56,4 +56,4 @@ Fix for access violation error.If download_page() fails,it aborts to process.
 
 ####2016/01/13  
 Added "external command" source.Explanation is above.  
-Currently,I can't access to "www.azlyrics.com".I can't test "www.azlyrics.com" source now.So I'm not sure the source works well.
+Currently,I can't access to "<www.azlyrics.com>".I can't test "<www.azlyrics.com>" source now.So I'm not sure the source works well.
