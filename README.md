@@ -57,7 +57,7 @@ For example,python installed dir is like "c:\python"
 In command prompt:  
 >pip install robobrowser beautifulsoup
 
-get_lyric.py
+About "get_lyric.py"
 -----
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
