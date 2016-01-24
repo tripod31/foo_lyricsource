@@ -38,13 +38,23 @@ I would suggest deactivating those source by moving it back to 'Available Source
 
 To Use "External Command" Source  
 -----
-Configuration of foobar2000 is same as abobe,except,source name is "External Command".  
+####Connfiguration of foobar2000
+Same as abobe,except,source name is "External Command".  
+
+####Place python script
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
 "get_lyrics.py"  
 "get_lyrics" directory  
 
-To use this script,you need to install python3,and required libraries.  
-To install libraries,After you installed python3,in command prompt:  
+####Install python3
+Download installer from https://www.python.org/.  
+Make sure that those directories are in your PATH enviromnevt.  
+[python installed dir]  
+[python installed dir]\script  
+For example,python installed dir is like "c:\python"
+
+####Install required libraries of python  
+In command prompt:  
 >pip install robobrowser beautifulsoup
 
 get_lyric.py

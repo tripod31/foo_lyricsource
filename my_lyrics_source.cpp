@@ -51,11 +51,12 @@ std::string g_lyrics;
 bool g_scraping;
 
 void commentSAX(void * ctx,	const xmlChar * value) {
-	if (strncmp((const char*)value, " Usage", 6) == 0)
+	std::string comment = (const char*)value;
+	if (comment.find("Usage") != std::string::npos)
 	{
 		g_scraping = true;	// start scraping lyrics
 	}
-	if (strncmp((const char*)value, " MxM", 4) == 0)
+	if (comment.find("googleoff") != std::string::npos)
 	{
 		g_scraping = false;	// end scraping lyrics
 	}
