@@ -27,16 +27,16 @@ download
 <http://xmlsoft.org/sources/win32/libxml2-2.7.8.win32.zip>  
 Place these dll files to the directory that is containd in PATH enviromment,or the directory where foobar2000.exe resides.  
 
-    libxml2.dll  
-    iconv.dll  
++    libxml2.dll  
++    iconv.dll  
 
 Foobar2000 Configuration  
 -----
 After installing the new component and placing the 2 DLLs in the Foobar directory, Go to Preferences > Tools > Lyric Show 3 and add "www.azlyrics.com" from 'Available Sources' to 'Search Order'.  
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
 
-    "Online DB: Google Search"  
-    "Online DB: Timestamped2"  
++    "Online DB: Google Search"  
++    "Online DB: Timestamped2"  
 
 To Use "External Command" Source  
 -----
@@ -46,28 +46,36 @@ Same as above,except,source name is "External Command".
 ####Place python script
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
 
-    get_lyric.py  
-    "get_lyric" directory  
++    get_lyric.py  
++    "get_lyric" directory  
 
 ####Install python3
 Download installer from https://www.python.org/.  
-After you have installed it,Make sure that those directories are in your PATH enviromnevt.  
+After you have installed it,make sure that those directories are in your PATH environment variable.  
 
-    [python installed dir]  
-    [python installed dir]\script  
-For example,python installed dir is like "c:\python"
++    [python installed dir]  
++    [python installed dir]\script  
+For example,python installed dir is like "c:\python".  
+If those directory are'nt conteined in PATH environment variable,you can edit the variable by tool like "Rapid Environment Editor".
 
 ####Install required libraries of python  
 In command prompt:  
 
     pip install robobrowser beautifulsoup4
 
+####To test "get_lyric.py" works well
+In command prompt:  
+
+    cd [foobar2000 dir]
+    python get_lyric.py --artist "moterhead" --song "eat the rich"
+If it works well,lyric should be displayed.
+
 About "get_lyric.py"
 -----
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
 
-    python get_lyrics.py --artist "artist" --song "song"  
+    python get_lyric.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This script put some debug imformation to "get_lyric.log" at the same directory.  
