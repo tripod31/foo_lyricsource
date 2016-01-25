@@ -43,25 +43,25 @@ Same as abobe,except,source name is "External Command".
 
 ####Place python script
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
-"get_lyric.py"  
-"get_lyric" directory  
+    get_lyric.py  
+    "get_lyric" directory  
 
 ####Install python3
 Download installer from https://www.python.org/.  
 Make sure that those directories are in your PATH enviromnevt.  
-[python installed dir]  
-[python installed dir]\script  
+    [python installed dir]  
+    [python installed dir]\script  
 For example,python installed dir is like "c:\python"
 
 ####Install required libraries of python  
 In command prompt:  
->pip install robobrowser beautifulsoup
+    pip install robobrowser beautifulsoup
 
 About "get_lyric.py"
 -----
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
->python get_lyrics.py --artist "artist" --song "song"  
+    python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This script put some debug imformation to "get_lyric.log" at the same directory.  
