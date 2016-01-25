@@ -56,7 +56,7 @@ After you have installed it,make sure that those directories are in your PATH en
 +    [python installed dir]  
 +    [python installed dir]\script  
 
-For example,python installed dir is like "c:\python".  
+For example,[python installed dir] is like "c:\python".  
 If those directory are'nt conteined in PATH environment variable,you can edit the variable by tool like "Rapid Environment Editor".
 
 ####Install required libraries of python  
@@ -69,6 +69,7 @@ In command prompt:
 
     cd [foobar2000 dir]
     python get_lyric.py --artist "moterhead" --song "eat the rich"
+For example,[foobar2000 dir] is like "C:\Program Files (x86)\foobar2000\".  
 If it works well,lyric should be displayed.
 
 About "get_lyric.py"
