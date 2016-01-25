@@ -41,7 +41,7 @@ I would suggest deactivating those source by moving it back to 'Available Source
 To Use "External Command" Source  
 -----
 ####foobar2000 configuration
-Same as abobe,except,source name is "External Command".  
+Same as above,except,source name is "External Command".  
 
 ####Place python script
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
@@ -51,7 +51,7 @@ From <https://github.com/tripod31/get_lyric>,Place those files to the directory 
 
 ####Install python3
 Download installer from https://www.python.org/.  
-Make sure that those directories are in your PATH enviromnevt.  
+After you have installed it,Make sure that those directories are in your PATH enviromnevt.  
 
     [python installed dir]  
     [python installed dir]\script  
