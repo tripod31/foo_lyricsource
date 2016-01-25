@@ -56,10 +56,12 @@ void commentSAX(void * ctx,	const xmlChar * value) {
 	{
 		g_scraping = true;	// start scraping lyrics
 	}
+	/*
 	if (comment.find("googleoff") != std::string::npos)
 	{
 		g_scraping = false;	// end scraping lyrics
 	}
+	*/
 }
 
 
@@ -75,6 +77,14 @@ void startElementSAX(void * ctx, const xmlChar * name, const xmlChar ** atts) {
 	if (g_scraping) {
 		if (!strcmp((const char*)name, "br")) {
 			g_lyrics += "\r\n";
+		}
+	}
+}
+
+void endElementSAX(void * ctx, const xmlChar * name) {
+	if (g_scraping) {
+		if (!strcmp((const char*)name, "div")) {
+			g_scraping = false;
 		}
 	}
 }
@@ -123,6 +133,7 @@ bool my_lyrics_source::Search( const search_info* pQuery, search_requirements::p
 		sax.comment = &commentSAX;
 		sax.characters = &charactersSAX;
 		sax.startElement = &startElementSAX;
+		sax.endElement = &endElementSAX;
 		g_scraping = false;
 		g_lyrics = "";
 
