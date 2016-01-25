@@ -26,15 +26,17 @@ download
 <http://xmlsoft.org/sources/win32/iconv-1.9.2.win32.zip>  
 <http://xmlsoft.org/sources/win32/libxml2-2.7.8.win32.zip>  
 Place these dll files to the directory that is containd in PATH enviromment,or the directory where foobar2000.exe resides.  
-libxml2.dll  
-iconv.dll  
+
+    libxml2.dll  
+    iconv.dll  
 
 Foobar2000 Configuration  
 -----
 After installing the new component and placing the 2 DLLs in the Foobar directory, Go to Preferences > Tools > Lyric Show 3 and add "www.azlyrics.com" from 'Available Sources' to 'Search Order'.  
 I would suggest deactivating those source by moving it back to 'Available Sources'.  
-"Online DB: Google Search"  
-"Online DB: Timestamped2"  
+
+    "Online DB: Google Search"  
+    "Online DB: Timestamped2"  
 
 To Use "External Command" Source  
 -----
@@ -43,24 +45,28 @@ Same as abobe,except,source name is "External Command".
 
 ####Place python script
 From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
+
     get_lyric.py  
     "get_lyric" directory  
 
 ####Install python3
 Download installer from https://www.python.org/.  
 Make sure that those directories are in your PATH enviromnevt.  
+
     [python installed dir]  
     [python installed dir]\script  
 For example,python installed dir is like "c:\python"
 
 ####Install required libraries of python  
 In command prompt:  
+
     pip install robobrowser beautifulsoup
 
 About "get_lyric.py"
 -----
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
+
     python get_lyrics.py --artist "artist" --song "song"  
 
 and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
