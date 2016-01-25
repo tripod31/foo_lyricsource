@@ -60,7 +60,7 @@ For example,python installed dir is like "c:\python"
 ####Install required libraries of python  
 In command prompt:  
 
-    pip install robobrowser beautifulsoup
+    pip install robobrowser beautifulsoup4
 
 About "get_lyric.py"
 -----
