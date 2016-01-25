@@ -55,6 +55,7 @@ After you have installed it,make sure that those directories are in your PATH en
 
 +    [python installed dir]  
 +    [python installed dir]\script  
+
 For example,python installed dir is like "c:\python".  
 If those directory are'nt conteined in PATH environment variable,you can edit the variable by tool like "Rapid Environment Editor".
 
