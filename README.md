@@ -72,8 +72,7 @@ In command prompt:
 For example,[foobar2000 dir] is like "C:\Program Files (x86)\foobar2000\".  
 If it works well,lyric should be displayed.
 
-About "get_lyric.py"
------
+####About "get_lyric.py"
 This python script search lyric from sites.  
 The script is executed by foo_lyricsource.dll,with this argument format:  
 
