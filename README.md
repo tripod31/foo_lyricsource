@@ -90,4 +90,3 @@ Fix for access violation error.If download_page() fails,it aborts to process.
 
 ####2016/01/13  
 Added "external command" source.Explanation is above.  
-Currently,I can't access to "<http://www.azlyrics.com>".I can't test "<http://www.azlyrics.com>" source now.So I'm not sure the source works well.
