@@ -43,43 +43,29 @@ To Use "External Command" Source
 ####foobar2000 configuration
 Same as above,except,source name is "External Command".  
 
-####Place python script
-From <https://github.com/tripod31/get_lyric>,Place those files to the directory where foobar2000.exe resides.  
+####Place executable file
+From <https://github.com/tripod31/get_lyric>,Place exe file to the directory where foobar2000.exe resides.  
 
-+    get_lyric.py  
-+    "get_lyric" directory  
++    get_lyric.exe  
 
-####Install python3
-Download installer from https://www.python.org/.  
-After you have installed it,make sure that those directories are in your PATH environment variable.  
+Note that if "get_lyric.py" exists,"get_lyric.exe" is ignored.
 
-+    [python installed dir]  
-+    [python installed dir]\script  
-
-For example,[python installed dir] is like "c:\python".  
-If those directory are'nt conteined in PATH environment variable,you can edit the variable by tool like "Rapid Environment Editor".
-
-####Install required libraries of python  
-In command prompt:  
-
-    pip install robobrowser beautifulsoup4
-
-####To test "get_lyric.py" works well
+####To test "get_lyric.exe" works well
 In command prompt:  
 
     cd [foobar2000 dir]
-    python get_lyric.py --artist "moterhead" --song "eat the rich"
+    get_lyric.exe --artist "moterhead" --song "eat the rich"
 For example,[foobar2000 dir] is like "C:\Program Files (x86)\foobar2000\".  
 If it works well,lyric should be displayed.
 
-####About "get_lyric.py"
-This python script search lyric from sites.  
-The script is executed by foo_lyricsource.dll,with this argument format:  
+####About "get_lyric.exe"
+This exe search lyric from sites.  
+The exe is executed by foo_lyricsource.dll,with this argument format:  
 
-    python get_lyric.py --artist "artist" --song "song"  
+    get_lyric.exe --artist "artist" --song "song"  
 
-and the script put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
-This script put some debug imformation to "get_lyric.log" at the same directory.  
+and the exe put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
+This exe put some debug imformation to "get_lyric.log" at the same directory.  
 ChangeLog  
 -----
 ####2015/11/11  
@@ -91,3 +77,8 @@ Fix for access violation error.If download_page() fails,it aborts to process.
 ####2016/01/13  
 Added "external command" source.Explanation is above.  
 Currently,I can't access to "<http://www.azlyrics.com>".I can't test "<http://www.azlyrics.com>" source now.So I'm not sure the source works well.
+
+####2016/02/09  
+Replaced "get_lyric.py" python script to "get_lyric.exe".  
+This exe includes python and required libraries.So there is no need to install them.  
+If  there is "get_lyric.py",the dll uses it.  

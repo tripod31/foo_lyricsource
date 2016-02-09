@@ -3,6 +3,7 @@
 
 #include <regex>
 #include "util.h"
+#include <shlwapi.h>
 
 //You must use your own GUID, this one is for example purposes only (in VS2010 Tools->Create GUID).
 // {FD993696-0826-45C9-9D72-1B0640093474}
@@ -52,12 +53,25 @@ std::string lyrics_source_extcmd::removeUnwantedStr(std::string& str) {
 std::string lyrics_source_extcmd::exec_extcmd(std::string artist,std::string song)
 {
 	std::string lyric = "";
-	std::string cmd = "python get_lyric.py --artist \"" + removeUnwantedStr(artist) + "\""
-		+ " --song \"" + removeUnwantedStr(song) + "\"";
-	WCHAR cmdW[255];
-	int err = util::char2wide(cmd.c_str(),cmdW );
-	bool ret = util::create_cmd_process(cmdW,lyric);
 
+	artist = removeUnwantedStr(artist);
+	song = removeUnwantedStr(song);
+	std::string cmd = "";
+
+	// execute "get_lyric.py" or "get_lyric.exe".The priority of "get_lyric.py" is higher than "get_lyric.exe".
+	if (PathFileExists(L"get_lyric.py")) {
+		cmd = "python get_lyric.py --artist \"" + artist + "\""
+			+ " --song \"" + song + "\"";
+	}
+	else if (PathFileExists(L"get_lyric.exe")) {
+		cmd = "get_lyric.exe --artist \"" + artist + "\""
+			+ " --song \"" + song + "\"";
+	}
+	if (cmd.length() > 0) {
+		WCHAR cmdW[255];
+		int err = util::char2wide(cmd.c_str(), cmdW);
+		bool ret = util::create_cmd_process(cmdW, lyric);
+	}
 	return lyric;
 }
 
