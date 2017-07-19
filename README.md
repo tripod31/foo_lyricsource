@@ -67,6 +67,7 @@ get_lyric.exe --artist "artist" --song "song"
 ```
 and the exe put lyric string to standard output.If standard output is none,The dll consider it found no matched lyric.  
 This exe put some debug imformation to "get_lyric.log" at the same directory.  
+
 ChangeLog  
 -----
 #### 2015/11/11  
