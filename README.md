@@ -54,7 +54,7 @@ Note that if "get_lyric.py" exists,"get_lyric.exe" is ignored.
 In command prompt:  
 ```
 cd [foobar2000 dir]
-get_lyric.exe --artist "moterhead" --song "eat the rich"
+get_lyric.exe --artist "motorhead" --song "eat the rich"
 ```
 For example,[foobar2000 dir] is like "C:\Program Files (x86)\foobar2000\".  
 If it works well,lyric should be displayed.
